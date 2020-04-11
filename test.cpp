@@ -24,8 +24,8 @@ namespace
 
 int main()
 {
-	//ofstream jsonData;
-	//jsonData.open("jsonData.json");
+	ofstream Data;
+	Data.open("jsonData.json");
 
     const std::string url("https://solsa.crystallography.net/db/test.db/bibliography");
 
@@ -33,14 +33,18 @@ int main()
 
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 
-    //Sukuriamas reikiamas headeris
+    //Header
     struct curl_slist *chunk = NULL;
     chunk = curl_slist_append(chunk, "Accept: application/vnd.api+json");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
 
 
-    // Jei reikes bus folowinamas redirectas
+    // Follow redirects 
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+
+
+    // Time out after 10 seconds
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10);
 
     long httpCode(0);
     std::unique_ptr<std::string> httpData(new std::string());
@@ -50,14 +54,14 @@ int main()
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, httpData.get());
 
 
-    //Gaunamas response
+    //Getting
     curl_easy_perform(curl);
     curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpCode);
     curl_easy_cleanup(curl);
 
     if (httpCode == 200)
     {
-        std::cout << "\n Gautas response " << url << std::endl;
+        std::cout << "\n Succestful response from " << url << std::endl;
 
         Json::Value jsonData;
         Json::Reader jsonReader;
@@ -66,21 +70,23 @@ int main()
         {
             std::cout << "\nJSON data:" << std::endl;
             std::cout << jsonData.toStyledString() << std::endl;
+	    Data<< jsonData.toStyledString() <<std::endl; // output to file Data.json
 
 
         }
         else
         {
-            std::cout << "Http data nesigavo paversti JSON data" << std::endl;
+            std::cout << "Could not parse HTTP data as Json" << std::endl;
             std::cout << "HTTP data :\n" << *httpData.get() << std::endl;
             return 1;
         }
     }
     else
     {
-        std::cout << "Negautas GET " << url<<std::endl;
+        std::cout << "Could not GET from " << url<<std::endl;
         return 1;
+
     }
-	//jsonData.close();
+	Data.close();
     return 0;
 }
