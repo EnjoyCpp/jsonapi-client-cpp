@@ -1,1 +1,3 @@
-# IT-projektas
+jsonapi-client-cpp
+
+WORK IN PROGRESS
