@@ -27,7 +27,7 @@ int main()
 	ofstream Data;
 	Data.open("jsonData.json");
 
-    const std::string url("https://solsa.crystallography.net/db/test.db/bibliography");
+    const std::string url("https://www.lpexpress.lt/index.php?cl=terminals&fnc=getTerminals&fbclid=IwAR2br9Ncseex41Ie0hxZuJd-9yCSL0sZS-pz1HZ8H4IZGhqedhR_QY5e-FA");
 
     CURL* curl = curl_easy_init();
 
@@ -35,8 +35,13 @@ int main()
 
     //Header
     struct curl_slist *chunk = NULL;
+    struct curl_slist *headers = NULL;
+
     chunk = curl_slist_append(chunk, "Accept: application/vnd.api+json");
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
 
     // Follow redirects 
