@@ -1,13 +1,13 @@
-#include<iostream>
-#include<cstring>
+
+
 #include"ResourceIdentifier.h"
 
   
  ResourceIdentifier::ResourceIdentifier(const std::string id,const std::string type):
 	id_(id), type_(type){
-   #ifdef DEBUG
+    #ifdef DEBUG
 	std::cout <<"Constuctor is working..."<<std::endl;
-   #endif
+    #endif
   }
 
  std::string ResourceIdentifier::get_id(){
@@ -27,7 +27,7 @@
   };
 
  ResourceIdentifier::~ResourceIdentifier(){
-   #ifdef DEBUG
+    #ifdef DEBUG
 	std::cout<<"Destructor is working..."<<std::endl;
-   #endif
+    #endif
   }
