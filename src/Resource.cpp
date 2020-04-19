@@ -10,6 +10,12 @@
     #endif
   }
 
+ Resource::Resource(Json::Value value){
+    #ifdef DEBUG
+	std::cout <<"Constructor is working..."<<std::endl;
+    #endif 
+  }
+
  std::string Resource::get_attribute(const std::string attribute_name){ //getting attribute name
 	return attribute_name_;
   };
@@ -18,6 +24,13 @@
 	this->attribute_name_ = attribute_name;
 	this->value_ = value;
   };
+
+
+/* std::string Resource::get_data(Json::Value value){
+	
+
+  };
+*/
 
  Resource::~Resource(){
     #ifdef DEBUG

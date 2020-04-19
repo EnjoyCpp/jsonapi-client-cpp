@@ -1,15 +1,11 @@
 program=Resource
 
 Compile:
-	g++ *.cpp -c -lm
-CompileM:
-	g++ -Wall -pedantic -g *.cpp -lm
+	g++ *.cpp -lcurl -ljsoncpp -c -lm
 Compose:
-	g++ *.o -o $(program)	
+	g++ *.o -lcurl -ljsoncpp -o $(program)	
 test:Compile Compose deletea
 	./$(program)
-testM:CompileM compose deletea 
-	valgrind  --leak-check=full --show-leak-kinds=all ./Resource
 delete:
 	-rm *.o
 	-rm $(program)

@@ -20,10 +20,10 @@
 
  std::string Server::get_all(const std::string type){
 	std::string all_id;          //creating a new string 
-	all_id.append(get_url());   //adding url to a new string
-	all_id.append("/");        //adding "/" to url
-	all_id.append(type);      //adding type to url + "/"
-	return all_id;           //returning url+"/"+ type
+	all_id.append(get_url());    //adding url to a new string
+	all_id.append("/");          //adding "/" to url
+	all_id.append(type);         //adding type to url + "/"
+	return all_id;               //returning url+"/"+ type
   };
  
  std::string Server::get_one(const std::string type,const std::string id){
@@ -33,7 +33,7 @@
 	id_one.append(type);
 	id_one.append("/");
 	id_one.append(id);
-	return id_one;
+	return id_one;     //returns string with url + "/" + type + "/" + id
   };
 
  Server::~Server(){
