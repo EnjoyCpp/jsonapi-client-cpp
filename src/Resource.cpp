@@ -10,7 +10,8 @@
     #endif
   }
 
- Resource::Resource(Json::Value value){
+ Resource::Resource(Json::Value value):
+	JSON(value){
     #ifdef DEBUG
 	std::cout <<"Constructor is working..."<<std::endl;
     #endif 

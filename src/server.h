@@ -1,11 +1,14 @@
 #include<string>
 #include<iostream>
 #include<cstring>
+#include"namespace.h"
+#include"Resource.h"
 #pragma once
 
 class Server{
     private:
 	std::string url_;
+	Json::Value get_URL(const std::string url_);
 
     public:
 	Server(const std::string url);
