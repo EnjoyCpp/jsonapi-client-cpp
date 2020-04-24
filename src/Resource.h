@@ -10,6 +10,7 @@ class Resource: public ResourceIdentifier{
     private:
 	std::string attribute_name_;
 	std::string value_;
+	Json::Value JSON;
 
     public:
 	Resource(const std::string attribute_name="",const std::string value="");
