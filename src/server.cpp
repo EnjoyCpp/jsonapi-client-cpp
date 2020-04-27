@@ -23,7 +23,7 @@
     struct curl_slist *headers = NULL;
 
     chunk = curl_slist_append(chunk, "Accept: application/vnd.api+json");
-    headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, "Content-Type: application/vnd.api+json");
 
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
@@ -86,7 +86,7 @@
 	id_one.append("/");
 	id_one.append(id);     //string with url + "/" + type + "/" + id
 	Json::Value data = get_URL(id_one); //fetching by using new url to get single object
-	return Resource( data["data"][0] ); //somethy [0] has to be added, maybe a bug in the server
+	return Resource( data["data"] );
   };
 
  Server::~Server(){
