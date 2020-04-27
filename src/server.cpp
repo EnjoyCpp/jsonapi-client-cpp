@@ -78,15 +78,15 @@
 
   };
  
- std::string Server::get_one(const std::string type,const std::string id){
+ Resource Server::get_one(const std::string type,const std::string id){
 	std::string id_one;
 	id_one.append(get_url());
 	id_one.append("/");
 	id_one.append(type);
 	id_one.append("/");
 	id_one.append(id);     //string with url + "/" + type + "/" + id
-	get_URL(id_one);       //fetching by using new url to get single object
-
+	Json::Value data = get_URL(id_one); //fetching by using new url to get single object
+	return Resource( data["data"][0] ); //somethy [0] has to be added, maybe a bug in the server
   };
 
  Server::~Server(){
