@@ -18,7 +18,7 @@
   }
 
  Json::Value Resource::get_attribute(const std::string attribute_name){ //getting attribute name
-	return attributes["attributes"][attribute_name];
+	return JSON["attributes"][attribute_name];
   };
 
  std::string Resource::set_attribute(const std::string attribute_name,const std::string value){ //setting attribute name and value
