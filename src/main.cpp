@@ -12,7 +12,7 @@ int main(){
     std::cout << r.get_data().toStyledString()<<std::endl;*/
 
     Resource r=s.get_all("bibliography");
-    std::cout << r.get_data_one().toStyledString()<<std::endl;
+    std::cout << r.get_data().toStyledString()<<std::endl;
 
 
     
