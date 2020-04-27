@@ -17,7 +17,7 @@ class Server{
 	std::string get_url();
 
 	std::string get_all(const std::string type); 
-	std::string get_one(const std::string type,const std::string id);
+	Resource get_one(const std::string type,const std::string id);
 
 	~Server();
 };
