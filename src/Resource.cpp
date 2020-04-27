@@ -28,7 +28,7 @@
 
 
  Json::Value Resource::get_data(){
-	return JSON;
+	return JSON; //returns JSON["data"]
   };
 
 
