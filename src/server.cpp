@@ -68,13 +68,13 @@
 	return url_;
   };
 
- std::string Server::get_all(const std::string type){
+ Resource Server::get_all(const std::string type){
 	std::string all_id;          //creating a new string 
 	all_id.append(get_url());    //adding url to a new string
 	all_id.append("/");          //adding "/" to url
 	all_id.append(type);         //adding type to url + "/" //new string(url+"/"+ type)
-	get_URL(all_id);             //fetching by using new URL to get all data
-	
+	Json::Value data = get_URL(all_id);             //fetching by using new URL to get all data
+	return Resource (data["data"]);
 
   };
  

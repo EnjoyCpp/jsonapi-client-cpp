@@ -27,11 +27,10 @@
   };
 
 
-/* std::string Resource::get_data(Json::Value value){
-	
-
+ Json::Value Resource::get_data(){
+	return JSON;
   };
-*/
+
 
  Resource::~Resource(){
     #ifdef DEBUG

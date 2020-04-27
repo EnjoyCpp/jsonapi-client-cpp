@@ -19,7 +19,7 @@ class Resource: public ResourceIdentifier{
 	Json::Value get_attribute(const std::string attribute_name);
 	std::string set_attribute(const std::string atribute_name, const std::string value);
 
-	std::string get_data(Json::Value value);
+	Json::Value get_data();
 
 	~Resource();
 
