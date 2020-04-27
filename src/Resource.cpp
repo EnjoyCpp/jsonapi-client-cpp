@@ -17,8 +17,8 @@
     #endif 
   }
 
- std::string Resource::get_attribute(const std::string attribute_name){ //getting attribute name
-	return attribute_name_;
+ Json::Value Resource::get_attribute(const std::string attribute_name){ //getting attribute name
+	return JSON["attributes"][attribute_name];
   };
 
  std::string Resource::set_attribute(const std::string attribute_name,const std::string value){ //setting attribute name and value
@@ -27,11 +27,10 @@
   };
 
 
-/* std::string Resource::get_data(Json::Value value){
-	
-
+ Json::Value Resource::get_data(){
+	return JSON;
   };
-*/
+
 
  Resource::~Resource(){
     #ifdef DEBUG

@@ -23,7 +23,7 @@
     struct curl_slist *headers = NULL;
 
     chunk = curl_slist_append(chunk, "Accept: application/vnd.api+json");
-    headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, "Content-Type: application/vnd.api+json");
 
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
@@ -68,25 +68,25 @@
 	return url_;
   };
 
- std::string Server::get_all(const std::string type){
+ Resource Server::get_all(const std::string type){
 	std::string all_id;          //creating a new string 
 	all_id.append(get_url());    //adding url to a new string
 	all_id.append("/");          //adding "/" to url
 	all_id.append(type);         //adding type to url + "/" //new string(url+"/"+ type)
-	get_URL(all_id);             //fetching by using new URL to get all data
-	
+	Json::Value data = get_URL(all_id);             //fetching by using new URL to get all data
+	return Resource (data["data"]);
 
   };
  
- std::string Server::get_one(const std::string type,const std::string id){
+ Resource Server::get_one(const std::string type,const std::string id){
 	std::string id_one;
 	id_one.append(get_url());
 	id_one.append("/");
 	id_one.append(type);
 	id_one.append("/");
 	id_one.append(id);     //string with url + "/" + type + "/" + id
-	get_URL(id_one);       //fetching by using new url to get single object
-
+	Json::Value data = get_URL(id_one); //fetching by using new url to get single object
+	return Resource( data["data"] );
   };
 
  Server::~Server(){
