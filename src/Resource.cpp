@@ -21,11 +21,24 @@
 	return JSON["attributes"][attribute_name];
   };
 
- std::string Resource::set_attribute(const std::string attribute_name,const std::string value){ //setting attribute name and value
-	this->attribute_name_ = attribute_name;
+ std::string Resource::set_attribute(const std::string name, bool value){
+	this->attribute_name_= name ;
+	this-> value_ = value;
+  };
+ std::string Resource::set_attribute(const std::string name,const std::string value){ //setting attribute name and value
+	this->attribute_name_ = name;
 	this->value_ = value;
   };
 
+ std::string Resource::set_attribute(const std::string name, int value){
+	this->attribute_name_= name ;
+	this-> value_ = value;
+  };
+
+ std::string Resource::set_attribute(const std::string name, double value){
+	this->attribute_name_= name ;
+	this-> value_ = value;
+  };
 
  Json::Value Resource::get_data(){
 	return JSON; //returns JSON["data"]
