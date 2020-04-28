@@ -1,6 +1,6 @@
 
 
-#include"server.h"
+#include"Server.h"
 #include"Resource.h"
 
  Server::Server(const std::string url):

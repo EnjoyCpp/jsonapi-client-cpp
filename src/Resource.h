@@ -16,8 +16,13 @@ class Resource: public ResourceIdentifier{
 	Resource(const std::string attribute_name="",const std::string value="");
 	Resource(Json::Value value); //adding second constructor with all items from data payload
 
-	Json::Value get_attribute(const std::string attribute_name);
-	std::string set_attribute(const std::string atribute_name, const std::string value);
+	Json::Value get_attribute(const std::string attribute_name );
+	//std::string set_attribute(const std::string atribute_name, const std::string value );
+
+	std::string set_attribute(const std::string name, bool value );
+	std::string set_attribute(const std::string name, const std::string value );
+	std::string set_attribute(const std::string name, int value );
+	std::string set_attribute(const std::string name, double value );
 
 	Json::Value get_data();
 

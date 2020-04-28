@@ -2,7 +2,7 @@
 
 #include "ResourceIdentifier.h"
 #include "Resource.h"
-#include "server.h"
+#include "Server.h"
 
 
 int main(){
