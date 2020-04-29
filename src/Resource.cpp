@@ -3,12 +3,6 @@
 #include"Resource.h"
 
 
- Resource::Resource(const std::string attribute_name,const std::string value):
-	attribute_name_(attribute_name), value_(value){
-    #ifdef DEBUG
-	std::cout <<"Constuctor is working..."<<std::endl;
-    #endif
-  }
 
  Resource::Resource(Json::Value value):
 	JSON(value){
@@ -21,41 +15,40 @@
 	return JSON["attributes"][attribute_name];
   };
 
- /*std::string Resource::set_attribute(const std::string attribute_name,const std::string value){ //setting attribute name and value
-	this->attribute_name_ = name;
-	this->value_ = value;
+ Json::Value Resource::get_id(){ //getting id value
+	return JSON["id"];
   };
-*/
+
+ Json::Value Resource::get_type(){ //getting type value
+	return JSON["type"];
+  };
 
  void Resource::set_attribute(const std::string name, bool value){
-	 std::map<std::string, bool> mapOfJson;
-	//Inserting data in std::map
-	mapOfJson[name]=value;
-	JSON["attributes"][name]=mapOfJson[name];
+	JSON["attributes"][name]=value;
 	
   };
 
  void Resource::set_attribute(const std::string name,const std::string value){ //setting attribute name and value
-	std::map<std::string, std::string> mapOfJson;
-	//Inserting data in std::map
-	mapOfJson[name]=value;
-	JSON["attributes"][name]=mapOfJson[name];
+	JSON["attributes"][name]=value;
 
   };
 
  void Resource::set_attribute(const std::string name, int value){
-	std::map<std::string, int> mapOfJson;
-	//Inserting data in std::map
-	mapOfJson[name]=value;
-	JSON["attributes"][name]=mapOfJson[name];
+	JSON["attributes"][name]=value;
 
   };
 
  void Resource::set_attribute(const std::string name, double value){
-	std::map<std::string, double> mapOfJson;
-	//Inserting data in std::map
-	mapOfJson[name]=value;
-	JSON["attributes"][name]=mapOfJson[name];
+
+	JSON["attributes"][name]=value;
+  };
+
+ void Resource::set_id(const std::string value){
+	JSON["id"]=value;
+  };
+
+ void Resource::set_type(const std::string value){
+	JSON["type"]=value;
   };
 
  Json::Value Resource::get_data(){
