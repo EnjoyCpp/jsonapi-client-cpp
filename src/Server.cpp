@@ -1,7 +1,7 @@
 
 
 #include"Server.h"
-#include"Resource.h"
+//#include"Resource.h"
 
  Server::Server(const std::string url):
 	url_(url){
@@ -74,8 +74,12 @@
 	all_id.append("/");          //adding "/" to url
 	all_id.append(type);         //adding type to url + "/" //new string(url+"/"+ type)
 	Json::Value data = get_URL(all_id);             //fetching by using new URL to get all data
-	return Resource (data["data"]);
-
+	std::vector <Resource> arrayOfObjects;
+	for(int i=0;i<10;i++){
+	arrayOfObjects.push_back(Resource( data["data"] ) );
+	}
+	return arrayOfObjects[0];
+	//return Resource( data["data"] );
   };
  
  Resource Server::get_one(const std::string type,const std::string id){
@@ -86,7 +90,8 @@
 	id_one.append("/");
 	id_one.append(id);     //string with url + "/" + type + "/" + id
 	Json::Value data = get_URL(id_one); //fetching by using new url to get single object
-	return Resource( data["data"] );
+	Server server(id_one);
+	return Resource(server, data["data"] );
   };
 
  Server::~Server(){
