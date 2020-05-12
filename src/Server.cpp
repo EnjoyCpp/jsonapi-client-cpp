@@ -65,6 +65,7 @@
 	return url_;
   };
 
+ /*
  Resource Server::get_all(const std::string type){
 	std::string all_id;          //creating a new string 
 	all_id.append(get_url());    //adding url to a new string
@@ -78,6 +79,7 @@
 	return arrayOfObjects[0];
 	//return Resource( data["data"] );
   };
+  */
  
  Resource Server::get_one(const std::string type,const std::string id){
 	std::string id_one;
@@ -88,7 +90,7 @@
 	id_one.append(id);     //string with url + "/" + type + "/" + id
 	Json::Value data = get_URL(id_one); //fetching by using new url to get single object
 	Server server(id_one);
-	return Resource(server, data["data"] );
+	return Resource(&server, data["data"] );
   };
 
  Server::~Server(){

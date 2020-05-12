@@ -6,6 +6,8 @@
 #include<cstring>
 #include<map>
 
+class Server;
+
 #include"ResourceIdentifier.h"
 #include"Server.h"
 #include <jsoncpp/json/json.h> //adding json header for second constructor
@@ -13,10 +15,10 @@
 class Resource: public ResourceIdentifier{
     private:
 	Json::Value JSON;
-	Server server;
+	Server* server;
 
     public:
-	Resource(Server server, Json::Value value); //adding second constructor with all items from data payload
+	Resource(Server* server, Json::Value value); //adding second constructor with all items from data payload
 
 	Json::Value get_attribute(const std::string attribute_name );
 	Json::Value get_id();
