@@ -1,8 +1,5 @@
-
-
 #include"ResourceIdentifier.h"
 
-  
  ResourceIdentifier::ResourceIdentifier(const std::string id,const std::string type):
 	id_(id), type_(type){
     #ifdef DEBUG
