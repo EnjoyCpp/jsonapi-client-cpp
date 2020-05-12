@@ -1,9 +1,9 @@
+#ifndef __JSONAPI_CLIENT_RESOURCEIDENTIFIER_H
+#define __JSONAPI_CLIENT_RESOURCEIDENTIFIER_H
+
 #include <string>
 #include<iostream>
 #include<cstring>
-#pragma once
-
-
 
 class ResourceIdentifier{
     private:
@@ -22,3 +22,4 @@ class ResourceIdentifier{
 	~ResourceIdentifier();
 };
 
+#endif

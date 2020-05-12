@@ -1,8 +1,12 @@
+#ifndef __JSONAPI_CLIENT_RESOURCE_H
+#define __JSONAPI_CLIENT_RESOURCE_H
+
 #include<string>
 #include<iostream>
 #include<cstring>
 #include<map>
-#pragma once
+
+class Server;
 
 #include"ResourceIdentifier.h"
 #include"Server.h"
@@ -11,10 +15,10 @@
 class Resource: public ResourceIdentifier{
     private:
 	Json::Value JSON;
-	Server server;
+	Server* server;
 
     public:
-	Resource(Server server, Json::Value value); //adding second constructor with all items from data payload
+	Resource(Server* server, Json::Value value); //adding second constructor with all items from data payload
 
 	Json::Value get_attribute(const std::string attribute_name );
 	Json::Value get_id();
@@ -36,3 +40,5 @@ class Resource: public ResourceIdentifier{
 	~Resource();
 
 };
+
+#endif

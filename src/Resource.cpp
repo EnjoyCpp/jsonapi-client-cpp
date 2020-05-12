@@ -1,11 +1,6 @@
-
-
 #include"Resource.h"
-#include"Server.h"
 
-
-
- Resource::Resource(Server server, Json::Value value):
+ Resource::Resource(Server* server, Json::Value value):
 	JSON(value),server(server){
     #ifdef DEBUG
 	std::cout <<"Constructor is working..."<<std::endl;
