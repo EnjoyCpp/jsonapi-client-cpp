@@ -1,9 +1,6 @@
 #include <string>
 #include<iostream>
 #include<cstring>
-#pragma once
-
-
 
 class ResourceIdentifier{
     private:

@@ -1,9 +1,4 @@
-
-
 #include"Resource.h"
-#include"Server.h"
-
-
 
  Resource::Resource(Server server, Json::Value value):
 	JSON(value),server(server){

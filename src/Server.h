@@ -1,13 +1,13 @@
+#ifndef __JSONAPI_CLIENT_SERVER_H
+#define __JSONAPI_CLIENT_SERVER_H
+
 #include<string>
 #include<iostream>
 #include<cstring>
 #include<vector>
 
-#pragma once
-
 #include"namespace.h"
 #include"Resource.h"
-
 
 class Server{
     private:
@@ -25,3 +25,5 @@ class Server{
 
 	~Server();
 };
+
+#endif

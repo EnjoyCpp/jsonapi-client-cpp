@@ -1,8 +1,10 @@
+#ifndef __JSONAPI_CLIENT_RESOURCE_H
+#define __JSONAPI_CLIENT_RESOURCE_H
+
 #include<string>
 #include<iostream>
 #include<cstring>
 #include<map>
-#pragma once
 
 #include"ResourceIdentifier.h"
 #include"Server.h"
@@ -36,3 +38,5 @@ class Resource: public ResourceIdentifier{
 	~Resource();
 
 };
+
+#endif
