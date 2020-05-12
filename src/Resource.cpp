@@ -51,6 +51,15 @@
 	return JSON; //returns JSON["data"]
   };
 
+ std::string Resource::get_server(){
+	std::string* a = (std::string*)server;
+	std::string b = *a;
+	return b;
+  };
+
+ void Resource::set_server(const std::string server_new){
+	Server server(server_new);
+  };
 
  Resource::~Resource(){
     #ifdef DEBUG

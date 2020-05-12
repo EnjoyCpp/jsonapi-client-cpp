@@ -32,8 +32,8 @@ class Resource: public ResourceIdentifier{
 	void set_id(const std::string value);
 	void set_type(const std::string value);
 
-	void get_server();
-	void set_server();
+	std::string get_server(); //returns a value of Server* server
+	void set_server(const std::string server_new);        //sets new Server* server for Resource constructor
 
 	Json::Value get_data();
 
