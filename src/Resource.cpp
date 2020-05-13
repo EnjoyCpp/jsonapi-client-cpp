@@ -61,6 +61,45 @@
 	Server server(server_new);
   };
 
+ void Resource::store(){  //sending data POST
+  CURL *curl;
+  CURLcode res;
+
+  res = curl_global_init(CURL_GLOBAL_DEFAULT);
+  /* Check for errors */ 
+  if(res != CURLE_OK) {
+    fprintf(stderr, "curl_global_init() failed: %s\n",
+            curl_easy_strerror(res));
+ }
+ else{
+  curl = curl_easy_init();
+    
+   if(curl) {
+	/* First set the URL that is about to receive our POST. */ 
+	curl_easy_setopt(curl, CURLOPT_URL, "http://jsonapiplayground.reyesoft.com/v2/authors/1");  // Server server http part is symbolized
+	/*we add headers for Accept, Content-Type, Authorization */
+	  curl_slist* h = NULL;
+	  h = curl_slist_append(h, "Authorization: Someone Someone");
+	  h = curl_slist_append(h, "Accept: application/vnd.api+json");
+	  h = curl_slist_append(h, "Content-Type: application/vnd.api+json");
+	  curl_easy_setopt(curl, CURLOPT_HTTPHEADER, h);
+      
+	 /* Now specify we want to POST data */ 
+	  curl_easy_setopt(curl, CURLOPT_POST, 1L);
+ 
+	 /* Now specify what we want to send */ 
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS,JSON);
+ 
+	 /* verbose debug output */ 
+	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+ 
+         /* Perform the request, res will get the return code */ 
+	  res = curl_easy_perform(curl);
+
+	  curl_easy_cleanup(curl);
+	  curl_global_cleanup();
+    }}
+}
  Resource::~Resource(){
     #ifdef DEBUG
 	std::cout<<"Destructor is working..."<<std::endl;
