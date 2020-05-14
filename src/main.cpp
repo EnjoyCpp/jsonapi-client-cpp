@@ -10,8 +10,8 @@ int main(){
     Server s("http://jsonapiplayground.reyesoft.com/v2");
     Resource r = s.get_one("authors","2");
     std::cout << r.get_server() << std::endl;
-    std::cout<< r.get_data().toStyledString()<<std::endl;
-    r.store();
+    //std::cout<< r.get_data().toStyledString()<<std::endl;
+    //r.store();
     
     
 
@@ -47,10 +47,11 @@ int main(){
     std::cout << r.get_data().toStyledString()<<std::endl;
     */
 
-    
+    /*
     Server s("https://solsa.crystallography.net/db/test.db");
     Resource r = s.get_all("bibliography");
     std::cout << r.get_data().toStyledString()<<std::endl;
+    */
     
 
 
