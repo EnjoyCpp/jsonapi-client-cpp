@@ -1,4 +1,3 @@
-#include <assert.h>
 #include <jsoncpp/json/json.h>
 #include <string>
 #include "Resource.h"
@@ -13,7 +12,10 @@ int main(){
     Server s("https://example.com/api");
     Resource r = Resource(&s, json);
 
-    assert( r.get_attribute("name").toStyledString().compare("value") );
+    // Would be better to use assert(), but somewhy it does not work
+    if( r.get_attribute("name").toStyledString().compare("\"value\"\n") ) {
+        return 1;
+    }
 
     return 0;
 }
