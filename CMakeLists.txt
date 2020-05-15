@@ -22,3 +22,17 @@ set_property(TARGET jsonapiclient PROPERTY SOVERSION 0)
 include(GNUInstallDirs)
 install(TARGETS jsonapiclient LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# Tests
+include(CTest)
+
+file(GLOB TESTS "${PROJECT_SOURCE_DIR}/tests/test_*.cpp")
+
+foreach(file ${TESTS})
+	string(REGEX REPLACE "(^.*/|\\.[^.]*$)" "" file_without_ext ${file})
+	add_executable(${file_without_ext} ${file})
+	target_link_libraries(${file_without_ext} jsonapiclient)
+	target_link_libraries(${file_without_ext} curl)
+	target_link_libraries(${file_without_ext} jsoncpp)
+	add_test(${file_without_ext} ${file_without_ext})
+endforeach()
