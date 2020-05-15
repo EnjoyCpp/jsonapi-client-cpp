@@ -1,5 +1,6 @@
 
 
+#include <list>
 #include "ResourceIdentifier.h"
 #include "Resource.h"
 #include "Server.h"
@@ -8,8 +9,8 @@
 int main(){
     
     Server s("http://jsonapiplayground.reyesoft.com/v2");
-    Resource r = s.get_one("authors","2");
-    std::cout << r.get_server() << std::endl;
+    std::list<Resource> r = s.get_all("authors");
+    std::cout << r.size() << std::endl;
     //std::cout<< r.get_data().toStyledString()<<std::endl;
     //r.store();
     
