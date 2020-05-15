@@ -6,6 +6,7 @@ set(CMAKE_BUILD_TYPE Release)
 include_directories("${PROJECT_SOURCE_DIR}/src")
 FILE(GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 FILE(GLOB HEADERS ${PROJECT_SOURCE_DIR}/src/*.h)
+list(REMOVE_ITEM SOURCES "${PROJECT_SOURCE_DIR}/src/main.cpp")
 
 # Shared library
 add_library(jsonapiclient SHARED ${SOURCES})
