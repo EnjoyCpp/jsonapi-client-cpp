@@ -66,19 +66,17 @@
   };
 
  
- Resource Server::get_all(const std::string type){
+ std::list<Resource> Server::get_all(const std::string type){
 	std::string all_id;          //creating a new string 
 	all_id.append(get_url());    //adding url to a new string
 	all_id.append("/");          //adding "/" to url
 	all_id.append(type);         //adding type to url + "/" //new string(url+"/"+ type)
 	Json::Value data = get_URL(all_id);             //fetching by using new URL to get all data
-	/*std::vector <Resource> arrayOfObjects;
-	for(int i=0;i<10;i++){
-	arrayOfObjects.push_back(Resource( data["data"] ) );
-	}*/
-        Server server(all_id);
-	//return arrayOfObjects[0];
-	return Resource(&server, data["data"] );
+	std::list<Resource> resources;
+	for( int i=0; i < data["data"].size(); i++ ){
+        resources.push_back( Resource(this, data["data"][i]) );
+	}
+	return resources;
   };
   
  
