@@ -77,11 +77,12 @@
    curl = curl_easy_init();
 
     if(curl) {
+	  std::string URL = server->get_url();
 	 /* First set the URL that is about to receive our POST. */ 
-	 curl_easy_setopt(curl, CURLOPT_URL, get_server() );  // Server server http part is symbolized
+	 curl_easy_setopt(curl, CURLOPT_URL, "http://jsonapiplayground.reyesoft.com/v2/authors/1" );  //
 	 /*we add headers for Accept, Content-Type, Authorization */
 	   curl_slist* h = NULL;
-	   h = curl_slist_append(h, "Authorization: Someone Someone");
+	   //h = curl_slist_append(h, "Authorization: Someone Someone");
 	   h = curl_slist_append(h, "Accept: application/vnd.api+json");
 	   h = curl_slist_append(h, "Content-Type: application/vnd.api+json");
 	   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, h);
@@ -89,8 +90,12 @@
 	  /* Now specify we want to POST data */ 
 	  curl_easy_setopt(curl, CURLOPT_POST, 1L);
  
+	  /* Now specify size of data send */
+	  //const char *data = JSON;
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, JSON.size());
+
 	  /* Now specify what we want to send */ 
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS,JSON);
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, JSON);
  
 	  /* verbose debug output */ 
 	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
