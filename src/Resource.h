@@ -8,7 +8,6 @@
 
 class Server;
 
-//#include "callback.h"
 #include"ResourceIdentifier.h"
 #include"Server.h"
 #include <jsoncpp/json/json.h> //adding json header for second constructor
@@ -38,7 +37,7 @@ class Resource: public ResourceIdentifier{
 	void set_server( Server* server_new );        
 
 	Json::Value get_data();
-	void store();
+	int store();
 
 	~Resource();
 
