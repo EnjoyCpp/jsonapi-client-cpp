@@ -63,7 +63,7 @@
 	return server;
   };
 
-  int Resource::store(){  //sending data POST
+  bool Resource::create(){  //sending data POST
    CURL *curl;
    CURLcode res;
 
@@ -72,6 +72,7 @@
    if(res != CURLE_OK) {
      fprintf(stderr, "curl_global_init() failed: %s\n",
 		curl_easy_strerror(res));
+		return 0;
   }
   else{
    curl = curl_easy_init();
@@ -79,7 +80,7 @@
     if(curl) {
 	  std::string URL = server->get_url();
 	 /* First set the URL that is about to receive our POST. */ 
-	 curl_easy_setopt(curl, CURLOPT_URL, "http://jsonapiplayground.reyesoft.com/v2/authors/2" );  //
+	 curl_easy_setopt(curl, CURLOPT_URL, "http://jsonapiplayground.reyesoft.com/v2/authors");  //issue with getting server URL will be changed latter
 	 /*we add headers for Accept, Content-Type, Authorization */
 	   curl_slist* h = NULL;
 	   //h = curl_slist_append(h, "Authorization: Someone Someone");
@@ -109,13 +110,70 @@
 	    int http_code = 0;
  	    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
 	    //std::cout<<"http response code is: "<<http_code<<std::endl;
-	    return http_code;
+	    return 0;
   	    }
-	
+	  curl_slist_free_all(h);
 	  curl_easy_cleanup(curl);
 	  curl_global_cleanup();
      }}
   }
+
+  bool Resource::update(){ //USING PATCH to update resources
+   CURL *curl;
+   CURLcode res;
+
+   res = curl_global_init(CURL_GLOBAL_DEFAULT);
+   /* Check for errors */ 
+   if(res != CURLE_OK) {
+     fprintf(stderr, "curl_global_init() failed: %s\n",
+		curl_easy_strerror(res));
+		return 0;
+  }
+  else{
+   curl = curl_easy_init();
+
+    if(curl) {
+	 std::string URL = server->get_url();
+	 /* First set the URL that is about to receive our PATCH. */ 
+	 curl_easy_setopt(curl, CURLOPT_URL, "http://jsonapiplayground.reyesoft.com/v2/authors/2");  //issue with getting server URL will be changed latter
+	
+	 /*we add headers for Accept, Content-Type, Authorization */
+	   curl_slist* h = NULL;
+	   //h = curl_slist_append(h, "Authorization: Someone Someone");
+	   h = curl_slist_append(h, "Accept: application/vnd.api+json");
+	   h = curl_slist_append(h, "Content-Type: application/vnd.api+json");
+	   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, h);
+ 
+	  /* Now specify we want to PATCH data */ 
+	  curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+
+	  /* Now specify size of data send */
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, JSON.size() );
+
+	  /* Now specify what we want to send */ 
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, JSON);
+ 
+	  /* verbose debug output */ 
+	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+	  
+	  /* checking if http response code is correct*/
+	  //curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
+
+          /* Perform the request, res will get the return code */ 
+	  res = curl_easy_perform(curl);
+
+	  if(res == CURLE_HTTP_RETURNED_ERROR) {
+	    int http_code = 0;
+ 	    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
+	    //std::cout<<"http response code is: "<<http_code<<std::endl;
+	    return 0;
+  	    }
+	  curl_slist_free_all(h);
+	  curl_easy_cleanup(curl);
+	  curl_global_cleanup();
+     }}
+  }
+  
  Resource::~Resource(){
     #ifdef DEBUG
 	std::cout<<"Destructor is working..."<<std::endl;

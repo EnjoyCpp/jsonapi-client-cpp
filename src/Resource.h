@@ -37,7 +37,8 @@ class Resource: public ResourceIdentifier{
 	void set_server( Server* server_new );        
 
 	Json::Value get_data();
-	int store();
+	bool create(); //POST
+	bool update(); //PATCH
 
 	~Resource();
 
