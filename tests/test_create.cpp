@@ -9,6 +9,7 @@
 int main(){
   Server s("http://jsonapiplayground.reyesoft.com/v2");
   Resource r = s.get_one("authors","2");
+  r.unset_id();
   //std::cout<<r.store(); //output of http://jsonapiplayground.reyesoft.com/v2/authors/2" is http response code: 405
   if(r.create()){
 	return 0; }
