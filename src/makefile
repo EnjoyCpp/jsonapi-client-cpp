@@ -1,9 +1,9 @@
 program=Resource
 
 Compile:
-	g++ *.cpp -lcurl -ljsoncpp -c -lm
+	g++ -std=c++11 *.cpp -lcurl -ljsoncpp -c -lm
 Compose:
-	g++ *.o -lcurl -ljsoncpp -o $(program)	
+	g++ -std=c++11 *.o -lcurl -ljsoncpp -o $(program)	
 test:Compile Compose deletea
 	./$(program)
 delete:

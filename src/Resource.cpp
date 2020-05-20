@@ -78,10 +78,12 @@
    curl = curl_easy_init();
 
     if(curl) {
-	  std::string URL = server->get_url();
 	 /* First set the URL that is about to receive our POST. */ 
-	 curl_easy_setopt(curl, CURLOPT_URL, "http://jsonapiplayground.reyesoft.com/v2/authors");  //issue with getting server URL will be changed latter
-	 /*we add headers for Accept, Content-Type, Authorization */
+	 curl_easy_setopt(curl, CURLOPT_URL, server->get_url() );  //issue with getting server URL will be changed latter
+	   /*we add headers for Accept, Content-Type, Authorization */
+
+	auto information = [&] () {
+
 	   curl_slist* h = NULL;
 	   //h = curl_slist_append(h, "Authorization: Someone Someone");
 	   h = curl_slist_append(h, "Accept: application/vnd.api+json");
@@ -98,14 +100,14 @@
 	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, JSON);
  
 	  /* verbose debug output */ 
-	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+	  //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 	  
 	  /* checking if http response code is correct*/
 	  curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
 
           /* Perform the request, res will get the return code */ 
 	  res = curl_easy_perform(curl);
-
+	  
 	  if(res == CURLE_HTTP_RETURNED_ERROR) {
 	    int http_code = 0;
  	    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
@@ -115,6 +117,10 @@
 	  curl_slist_free_all(h);
 	  curl_easy_cleanup(curl);
 	  curl_global_cleanup();
+	};
+
+	information();
+
      }}
   }
 
@@ -133,11 +139,10 @@
    curl = curl_easy_init();
 
     if(curl) {
-	 std::string URL = server->get_url();
-	 /* First set the URL that is about to receive our PATCH. */ 
-	 curl_easy_setopt(curl, CURLOPT_URL, "http://jsonapiplayground.reyesoft.com/v2/authors/2");  //issue with getting server URL will be changed latter
+	   /* First set the URL that is about to receive our PATCH. */ 
+	   curl_easy_setopt(curl, CURLOPT_URL, server->get_url() );  //issue with getting server URL will be changed latter
 	
-	 /*we add headers for Accept, Content-Type, Authorization */
+	   /*we add headers for Accept, Content-Type, Authorization */
 	   curl_slist* h = NULL;
 	   //h = curl_slist_append(h, "Authorization: Someone Someone");
 	   h = curl_slist_append(h, "Accept: application/vnd.api+json");
@@ -154,10 +159,10 @@
 	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, JSON);
  
 	  /* verbose debug output */ 
-	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+	  //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 	  
 	  /* checking if http response code is correct*/
-	  //curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
+	  curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
 
           /* Perform the request, res will get the return code */ 
 	  res = curl_easy_perform(curl);
@@ -171,9 +176,14 @@
 	  curl_slist_free_all(h);
 	  curl_easy_cleanup(curl);
 	  curl_global_cleanup();
+
      }}
   }
-  
+
+  void Resource::unset_id(){
+	JSON["id"] = Json::nullValue;    //clearing id value
+  };
+
  Resource::~Resource(){
     #ifdef DEBUG
 	std::cout<<"Destructor is working..."<<std::endl;

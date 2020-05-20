@@ -39,6 +39,7 @@ class Resource: public ResourceIdentifier{
 	Json::Value get_data();
 	bool create(); //POST
 	bool update(); //PATCH
+	void unset_id();
 
 	~Resource();
 
