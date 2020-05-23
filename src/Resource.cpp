@@ -78,10 +78,10 @@
    curl = curl_easy_init();
 
     if(curl) {
+	 std::string URL = server->get_url();
 	 /* First set the URL that is about to receive our POST. */ 
 	 curl_easy_setopt(curl, CURLOPT_URL, server->get_url() );  //issue with getting server URL will be changed latter
 	   /*we add headers for Accept, Content-Type, Authorization */
-
 	auto information = [&] () {
 
 	   curl_slist* h = NULL;
@@ -100,7 +100,7 @@
 	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, JSON);
  
 	  /* verbose debug output */ 
-	  //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 	  
 	  /* checking if http response code is correct*/
 	  curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
@@ -159,7 +159,7 @@
 	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, JSON);
  
 	  /* verbose debug output */ 
-	  //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 	  
 	  /* checking if http response code is correct*/
 	  curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
