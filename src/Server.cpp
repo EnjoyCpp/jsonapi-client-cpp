@@ -57,7 +57,7 @@
 	//Data.close();
   };
 
- std::string Server::set_url(const std::string url_new){
+ void Server::set_url(const std::string url_new){
 	this->url_=url_new;
   };
 

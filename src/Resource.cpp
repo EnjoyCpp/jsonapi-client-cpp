@@ -19,23 +19,23 @@
 	return JSON.get("type", "").asString();
   };
 
- void Resource::set_attribute( const std::string name, bool value ){
+ void Resource::set_attribute( const std::string name, const std::string value ){ //setting attribute name and value
 	JSON["attributes"][name]=value;
-	
   };
 
- void Resource::set_attribute( const std::string name,const std::string value ){ //setting attribute name and value
+ void Resource::set_attribute( const std::string name, bool value ){
 	JSON["attributes"][name]=value;
-
   };
 
  void Resource::set_attribute( const std::string name, int value ){
 	JSON["attributes"][name]=value;
-
   };
 
  void Resource::set_attribute( const std::string name, double value ){
+	JSON["attributes"][name]=value;
+  };
 
+ void Resource::set_attribute( const std::string name, const char value){
 	JSON["attributes"][name]=value;
   };
 
@@ -82,7 +82,6 @@
 	 /* First set the URL that is about to receive our POST. */ 
 	 curl_easy_setopt(curl, CURLOPT_URL, URL.c_str() );
 	   /*we add headers for Accept, Content-Type, Authorization */
-	auto information = [&] () {
 
 	   curl_slist* h = NULL;
 	   //h = curl_slist_append(h, "Authorization: Someone Someone");
@@ -121,9 +120,7 @@
 	  curl_slist_free_all(h);
 	  curl_easy_cleanup(curl);
 	  curl_global_cleanup();
-	};
-
-	information();
+	  return 1;
 
      }}
   }
@@ -187,6 +184,7 @@
 	  curl_slist_free_all(h);
 	  curl_easy_cleanup(curl);
 	  curl_global_cleanup();
+	  return 1;
 
      }}
   }
