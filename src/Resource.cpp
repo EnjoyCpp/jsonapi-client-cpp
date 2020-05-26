@@ -93,11 +93,14 @@
 	  /* Now specify we want to POST data */ 
 	  curl_easy_setopt(curl, CURLOPT_POST, 1L);
  
+      std::string payload = JSON.toStyledString();
+ 
 	  /* Now specify size of data send */
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, JSON.size() );
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, payload.size());
 
 	  /* Now specify what we want to send */ 
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, JSON);
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, payload.c_str());
+      cout << JSON.toStyledString() << endl;
  
 	  /* verbose debug output */ 
 	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
@@ -155,11 +158,13 @@
 	  /* Now specify we want to PATCH data */ 
 	  curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PATCH");
 
+      std::string payload = JSON.toStyledString();
+
 	  /* Now specify size of data send */
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, JSON.size() );
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, payload.size());
 
 	  /* Now specify what we want to send */ 
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, JSON);
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, payload.c_str());
  
 	  /* verbose debug output */ 
 	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
