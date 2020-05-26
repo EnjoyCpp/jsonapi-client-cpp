@@ -11,12 +11,12 @@
 	return JSON["attributes"][attribute_name];
   };
 
- Json::Value Resource::get_id(){ //getting id value
-	return JSON["id"];
+ std::string Resource::get_id(){ //getting id value
+	return JSON.get("id", "").asString();
   };
 
- Json::Value Resource::get_type(){ //getting type value
-	return JSON["type"];
+ std::string Resource::get_type(){ //getting type value
+	return JSON.get("type", "").asString();
   };
 
  void Resource::set_attribute( const std::string name, bool value ){
