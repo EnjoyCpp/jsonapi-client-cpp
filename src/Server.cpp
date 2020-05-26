@@ -71,7 +71,6 @@
 	all_id.append("/");          //adding "/" to url
 	all_id.append(type);         //adding type to url + "/" //new string(url+"/"+ type)
 	Json::Value data = get_URL(all_id);             //fetching by using new URL to get all data
-	Server server(all_id);
 	std::list<Resource> resources;
 	for( int i=0; i < data["data"].size(); i++ ){
         resources.push_back( Resource(this, data["data"][i]) );
@@ -87,8 +86,6 @@
 	id_one.append("/");
 	id_one.append(id);     //string with url + "/" + type + "/" + id
 	Json::Value data = get_URL(id_one); //fetching by using new url to get single object
-	//set_url(id_one);
-	Server server(id_one);
 	return Resource(this, data["data"] );
   };
 
