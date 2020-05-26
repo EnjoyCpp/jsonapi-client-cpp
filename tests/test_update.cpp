@@ -10,7 +10,7 @@ int main(){
   Server s("http://jsonapiplayground.reyesoft.com/v2");
   Resource r = s.get_one("authors","2");
   if(r.update()){
-	return 1; }
+	return 0; }
   
-    return 0;
+    return 1;
 };
