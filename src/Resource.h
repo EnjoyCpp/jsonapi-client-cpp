@@ -20,8 +20,8 @@ class Resource: public ResourceIdentifier{
 	Resource(Server* server, Json::Value value); //adding second constructor with all items from data payload
 
 	Json::Value get_attribute(const std::string attribute_name );
-	Json::Value get_id();
-	Json::Value get_type();
+	std::string get_id();
+	std::string get_type();
 
 	void set_attribute( const std::string name, bool value );
 	void set_attribute( const std::string name, const std::string value );

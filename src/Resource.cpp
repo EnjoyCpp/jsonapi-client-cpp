@@ -11,12 +11,12 @@
 	return JSON["attributes"][attribute_name];
   };
 
- Json::Value Resource::get_id(){ //getting id value
-	return JSON["id"];
+ std::string Resource::get_id(){ //getting id value
+	return JSON.get("id", "").asString();
   };
 
- Json::Value Resource::get_type(){ //getting type value
-	return JSON["type"];
+ std::string Resource::get_type(){ //getting type value
+	return JSON.get("type", "").asString();
   };
 
  void Resource::set_attribute( const std::string name, bool value ){
@@ -78,9 +78,9 @@
    curl = curl_easy_init();
 
     if(curl) {
-	 std::string URL = server->get_url();
+	 std::string URL = server->get_url() + "/" + this->get_type();
 	 /* First set the URL that is about to receive our POST. */ 
-	 curl_easy_setopt(curl, CURLOPT_URL, server->get_url() );  //issue with getting server URL will be changed latter
+	 curl_easy_setopt(curl, CURLOPT_URL, URL.c_str() );
 	   /*we add headers for Accept, Content-Type, Authorization */
 	auto information = [&] () {
 
@@ -93,11 +93,15 @@
 	  /* Now specify we want to POST data */ 
 	  curl_easy_setopt(curl, CURLOPT_POST, 1L);
  
+      Json::Value payload_json;
+      payload_json["data"] = JSON;
+      std::string payload_str = payload_json.toStyledString();
+ 
 	  /* Now specify size of data send */
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, JSON.size() );
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, payload_str.size());
 
 	  /* Now specify what we want to send */ 
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, JSON);
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, payload_str.c_str());
  
 	  /* verbose debug output */ 
 	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
@@ -139,8 +143,11 @@
    curl = curl_easy_init();
 
     if(curl) {
+       std::string URL = server->get_url() + "/" +
+                         this->get_type()  + "/" +
+                         this->get_id();
 	   /* First set the URL that is about to receive our PATCH. */ 
-	   curl_easy_setopt(curl, CURLOPT_URL, server->get_url() );  //issue with getting server URL will be changed latter
+	   curl_easy_setopt(curl, CURLOPT_URL, URL.c_str() );
 	
 	   /*we add headers for Accept, Content-Type, Authorization */
 	   curl_slist* h = NULL;
@@ -152,11 +159,15 @@
 	  /* Now specify we want to PATCH data */ 
 	  curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PATCH");
 
+      Json::Value payload_json;
+      payload_json["data"] = JSON;
+      std::string payload_str = payload_json.toStyledString();
+
 	  /* Now specify size of data send */
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, JSON.size() );
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, payload_str.size());
 
 	  /* Now specify what we want to send */ 
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, JSON);
+	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, payload_str.c_str());
  
 	  /* verbose debug output */ 
 	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
