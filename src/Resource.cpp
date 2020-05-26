@@ -78,9 +78,9 @@
    curl = curl_easy_init();
 
     if(curl) {
-	 std::string URL = server->get_url();
+	 std::string URL = server->get_url() + "/" + this->get_type();
 	 /* First set the URL that is about to receive our POST. */ 
-	 curl_easy_setopt(curl, CURLOPT_URL, server->get_url() );  //issue with getting server URL will be changed latter
+	 curl_easy_setopt(curl, CURLOPT_URL, URL.c_str() );
 	   /*we add headers for Accept, Content-Type, Authorization */
 	auto information = [&] () {
 
@@ -139,8 +139,11 @@
    curl = curl_easy_init();
 
     if(curl) {
+       std::string URL = server->get_url() + "/" +
+                         this->get_type()  + "/" +
+                         this->get_id();
 	   /* First set the URL that is about to receive our PATCH. */ 
-	   curl_easy_setopt(curl, CURLOPT_URL, server->get_url() );  //issue with getting server URL will be changed latter
+	   curl_easy_setopt(curl, CURLOPT_URL, URL.c_str() );
 	
 	   /*we add headers for Accept, Content-Type, Authorization */
 	   curl_slist* h = NULL;
