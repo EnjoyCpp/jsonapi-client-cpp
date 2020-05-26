@@ -23,12 +23,14 @@ class Resource: public ResourceIdentifier{
 	std::string get_id();
 	std::string get_type();
 
-	void set_attribute( const std::string name, bool value );
 	void set_attribute( const std::string name, const std::string value );
+	void set_attribute( const std::string name, bool value );
 	void set_attribute( const std::string name, int value );
 	void set_attribute( const std::string name, double value );
+        void set_attribute( const std::string name, const char value);
 
 	void set_id( const std::string value );
+	void unset_id();
 	void set_type( const std::string value );
 
 	void set_server(const std::string server_new);    
@@ -39,7 +41,6 @@ class Resource: public ResourceIdentifier{
 	Json::Value get_data();
 	bool create(); //POST
 	bool update(); //PATCH
-	void unset_id();
 
 	~Resource();
 

@@ -21,7 +21,7 @@ class Server{
     public:
 	Server(const std::string url);
 
-	std::string set_url(const std::string url_new); //setting url for a server
+	void set_url(const std::string url_new); //setting url for a server
 	std::string get_url();
 
 	std::list<Resource> get_all(const std::string type); 
