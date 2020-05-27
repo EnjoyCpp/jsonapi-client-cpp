@@ -23,11 +23,10 @@ class Resource: public ResourceIdentifier{
 	std::string get_id();
 	std::string get_type();
 
-	void set_attribute( const std::string name, const std::string value );
 	void set_attribute( const std::string name, bool value );
 	void set_attribute( const std::string name, int value );
 	void set_attribute( const std::string name, double value );
-        void set_attribute( const std::string name, const char value);
+	void set_attribute( const std::string name, const char *value);
 
 	void set_id( const std::string value );
 	void unset_id();

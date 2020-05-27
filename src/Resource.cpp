@@ -19,10 +19,6 @@
 	return JSON.get("type", "").asString();
   };
 
- void Resource::set_attribute( const std::string name, const std::string value ){ //setting attribute name and value
-	JSON["attributes"][name]=value;
-  };
-
  void Resource::set_attribute( const std::string name, bool value ){
 	JSON["attributes"][name]=value;
   };
@@ -35,7 +31,7 @@
 	JSON["attributes"][name]=value;
   };
 
- void Resource::set_attribute( const std::string name, const char value){
+ void Resource::set_attribute( const std::string name, const char *value){
 	JSON["attributes"][name]=value;
   };
 
@@ -123,6 +119,7 @@
 	  return 1;
 
      }}
+	return 0;
   }
 
   bool Resource::update(){ //USING PATCH to update resources
@@ -187,6 +184,7 @@
 	  return 1;
 
      }}
+	return 0;
   }
 
   void Resource::unset_id(){
