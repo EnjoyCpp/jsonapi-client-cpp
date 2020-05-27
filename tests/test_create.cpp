@@ -11,8 +11,8 @@ int main(){
   Resource r = s.get_one("authors","2");
   r.unset_id();
   if(r.create()){
-	return 1; }
+	return 0; }
   
-    return 0;
+    return 1;
 };
 
