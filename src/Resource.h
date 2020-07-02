@@ -16,9 +16,9 @@ class Resource: public ResourceIdentifier{
     private:
 	Json::Value JSON;
 	Server* server;
+
     public:
 	Resource(Server* server, Json::Value value); //adding second constructor with all items from data payload
-
 	Json::Value get_attribute(const std::string attribute_name );
 	std::string get_id();
 	std::string get_type();
@@ -38,8 +38,11 @@ class Resource: public ResourceIdentifier{
 	void set_server( Server* server_new );        
 
 	Json::Value get_data();
+	Json::Value get_data_all();
 	bool create(); //POST
 	bool update(); //PATCH
+
+        bool information(std::string server_URL, int type); //information for POST and PATCH // type 0 to POST type 1 to PATCH
 
 	~Resource();
 
