@@ -47,6 +47,7 @@
 	return JSON; //returns JSON["data"]
   };
 
+
  void Resource::set_server(const std::string server_new){
 	Server server(server_new);
   };
@@ -59,8 +60,8 @@
 	return server;
   };
 
-  bool Resource::create(){  //sending data POST
-   CURL *curl;
+  bool Resource::information(std:: string server_URL,int type){
+	CURL *curl;
    CURLcode res;
 
    res = curl_global_init(CURL_GLOBAL_DEFAULT);
@@ -74,7 +75,7 @@
    curl = curl_easy_init();
 
     if(curl) {
-	 std::string URL = server->get_url() + "/" + this->get_type();
+	 std::string URL = server_URL;
 	 /* First set the URL that is about to receive our POST. */ 
 	 curl_easy_setopt(curl, CURLOPT_URL, URL.c_str() );
 	   /*we add headers for Accept, Content-Type, Authorization */
@@ -86,7 +87,8 @@
 	   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, h);
       
 	  /* Now specify we want to POST data */ 
-	  curl_easy_setopt(curl, CURLOPT_POST, 1L);
+	  if (type==0){curl_easy_setopt(curl, CURLOPT_POST, 1L);}
+	  if (type==1){ curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PATCH");}
  
       Json::Value payload_json;
       payload_json["data"] = JSON;
@@ -120,73 +122,18 @@
 
      }}
 	return 0;
+  };
+  bool Resource::create(){  //sending data POST
+   	std::string URL = server->get_url() + "/" + this->get_type();
+	if(information(URL,0)==1) return 1;
+	else return 0;
   }
 
   bool Resource::update(){ //USING PATCH to update resources
-   CURL *curl;
-   CURLcode res;
-
-   res = curl_global_init(CURL_GLOBAL_DEFAULT);
-   /* Check for errors */ 
-   if(res != CURLE_OK) {
-     fprintf(stderr, "curl_global_init() failed: %s\n",
-		curl_easy_strerror(res));
-		return 0;
+	std::string URL = server->get_url() + "/" + this->get_type()  + "/" + this->get_id();
+	if(information(URL,1)==1) return 1;
+	else return 0;
   }
-  else{
-   curl = curl_easy_init();
-
-    if(curl) {
-       std::string URL = server->get_url() + "/" +
-                         this->get_type()  + "/" +
-                         this->get_id();
-	   /* First set the URL that is about to receive our PATCH. */ 
-	   curl_easy_setopt(curl, CURLOPT_URL, URL.c_str() );
-	
-	   /*we add headers for Accept, Content-Type, Authorization */
-	   curl_slist* h = NULL;
-	   //h = curl_slist_append(h, "Authorization: Someone Someone");
-	   h = curl_slist_append(h, "Accept: application/vnd.api+json");
-	   h = curl_slist_append(h, "Content-Type: application/vnd.api+json");
-	   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, h);
- 
-	  /* Now specify we want to PATCH data */ 
-	  curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PATCH");
-
-      Json::Value payload_json;
-      payload_json["data"] = JSON;
-      std::string payload_str = payload_json.toStyledString();
-
-	  /* Now specify size of data send */
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, payload_str.size());
-
-	  /* Now specify what we want to send */ 
-	  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, payload_str.c_str());
- 
-	  /* verbose debug output */ 
-	  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
-	  
-	  /* checking if http response code is correct*/
-	  curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
-
-          /* Perform the request, res will get the return code */ 
-	  res = curl_easy_perform(curl);
-
-	  if(res == CURLE_HTTP_RETURNED_ERROR) {
-	    int http_code = 0;
- 	    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
-	    //std::cout<<"http response code is: "<<http_code<<std::endl;
-	    return 0;
-  	    }
-	  curl_slist_free_all(h);
-	  curl_easy_cleanup(curl);
-	  curl_global_cleanup();
-	  return 1;
-
-     }}
-	return 0;
-  }
-
   void Resource::unset_id(){
 	JSON["id"] = Json::nullValue;    //clearing id value
   };
