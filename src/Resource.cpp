@@ -136,7 +136,7 @@
 	else return 0;
   }
 
-  bool Resource::deleteResource(std::string type,std::string id){ // using DELETE to delete Resources
+  bool Resource::del(std::string type,std::string id){ // using DELETE to delete Resources
 	std::string URL = server->get_url() + "/" + type  + "/" + id;
 	if(send_json_to_server(URL,2)==1) return 1;
 	else return 0;
