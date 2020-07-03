@@ -89,6 +89,7 @@
 	  /* Now specify we want to POST data */ 
 	  if (type==0){curl_easy_setopt(curl, CURLOPT_POST, 1L);}
 	  if (type==1){ curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PATCH");}
+	  if (type==2){ curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");}
  
       Json::Value payload_json;
       payload_json["data"] = JSON;
@@ -134,6 +135,13 @@
 	if(send_json_to_server(URL,1)==1) return 1;
 	else return 0;
   }
+
+  bool Resource::deleteResource(std::string type,std::string id){ // using DELETE to delete Resources
+	std::string URL = server->get_url() + "/" + type  + "/" + id;
+	if(send_json_to_server(URL,2)==1) return 1;
+	else return 0;
+  }
+
   void Resource::unset_id(){
 	JSON["id"] = Json::nullValue;    //clearing id value
   };
