@@ -42,7 +42,7 @@ class Resource: public ResourceIdentifier{
 	Json::Value get_data_all();
 	bool create(); //POST
 	bool update(); //PATCH
-	bool deleteResource(const std::string type, const std::string id);
+	bool del(const std::string type, const std::string id);
 
 	~Resource();
 
