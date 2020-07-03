@@ -60,7 +60,7 @@
 	return server;
   };
 
-  bool Resource::information(std:: string server_URL,int type){
+  bool Resource::send_json_to_server(std:: string server_URL,int type){
 	CURL *curl;
    CURLcode res;
 
@@ -125,13 +125,13 @@
   };
   bool Resource::create(){  //sending data POST
    	std::string URL = server->get_url() + "/" + this->get_type();
-	if(information(URL,0)==1) return 1;
+	if(send_json_to_server(URL,0)==1) return 1;
 	else return 0;
   }
 
   bool Resource::update(){ //USING PATCH to update resources
 	std::string URL = server->get_url() + "/" + this->get_type()  + "/" + this->get_id();
-	if(information(URL,1)==1) return 1;
+	if(send_json_to_server(URL,1)==1) return 1;
 	else return 0;
   }
   void Resource::unset_id(){

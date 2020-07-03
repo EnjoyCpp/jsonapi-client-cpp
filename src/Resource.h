@@ -16,6 +16,7 @@ class Resource: public ResourceIdentifier{
     private:
 	Json::Value JSON;
 	Server* server;
+	bool send_json_to_server(std::string server_URL, int type); //information for POST and PATCH // type 0 to POST type 1 to PATCH
 
     public:
 	Resource(Server* server, Json::Value value); //adding second constructor with all items from data payload
@@ -41,8 +42,6 @@ class Resource: public ResourceIdentifier{
 	Json::Value get_data_all();
 	bool create(); //POST
 	bool update(); //PATCH
-
-        bool information(std::string server_URL, int type); //information for POST and PATCH // type 0 to POST type 1 to PATCH
 
 	~Resource();
 
