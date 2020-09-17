@@ -80,14 +80,22 @@
   };
   
  Resource Server::get_one(const std::string type,const std::string id){
-	std::string id_one;
+	/*std::string id_one;
 	id_one.append(get_url());
 	id_one.append("/");
 	id_one.append(type);
 	id_one.append("/");
 	id_one.append(id);     //string with url + "/" + type + "/" + id
-	Json::Value data = get_URL(id_one); //fetching by using new url to get single object
-	return Resource(this, data["data"] );
+	*/
+	//Json::Value data = get_URL(id_one); //fetching by using new url to get single object
+	
+	Server home( "file:///home/enjoy" );
+	Resource my_file = home.get_one( "JSON", "my-file.json" );
+
+	return my_file;
+
+	//return Resource (this, data[data]);
+
   };
 
  Server::~Server(){
