@@ -77,6 +77,12 @@
         resources.push_back( Resource(this, data["data"][i]) );
 	}
 	return resources;
+
+	/*Server home( "file:///home/enjoy" );
+	Resource my_files = home.get_one(type,"*.json");
+
+	return my_files;
+	*/
   };
   
  Resource Server::get_one(const std::string type,const std::string id){
@@ -86,15 +92,16 @@
 	id_one.append(type);
 	id_one.append("/");
 	id_one.append(id);     //string with url + "/" + type + "/" + id
+	
+	Json::Value data = get_URL(id_one); //fetching by using new url to get single object
 	*/
-	//Json::Value data = get_URL(id_one); //fetching by using new url to get single object
 	
 	Server home( "file:///home/enjoy" );
-	Resource my_file = home.get_one( "JSON", "my-file.json" );
+	Resource my_file = home.get_one( type, id );
 
 	return my_file;
-
-	//return Resource (this, data[data]);
+	
+	//return Resource (this, data["data"]);
 
   };
 
