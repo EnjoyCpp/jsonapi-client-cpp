@@ -89,7 +89,7 @@
 	
 	Json::Value data = get_URL(id_one); //fetching by using new url to get single object
 
-	return Resource (this, data[data]);
+	return Resource (this, data["data"]);
 
   };
 
